@@ -3,14 +3,26 @@
 		<div id="header-text">
 			<h1>Knowledge base doesn't have to be boring</h1>
 			<h3>Everything you need to manage your messaging</h3>
-			<input placeholder="Search for answers">
-			<button><i class="fa fa-search" aria-hidden="true"></i></button>
+			<input @keyup.enter="navigate()" placeholder="Search for answers" v-model="query">
+			<button @click="navigate()"><i class="fa fa-search" aria-hidden="true"></i></button>
 		</div>
 	</div>
 </template>
 
 <script>
 export default {
+	data() {
+		return {
+			query: null
+		}
+	},
+	methods: {
+		navigate() {
+			if (!this.query || this.query == '') return;
+
+			this.$router.push(`/search/${this.query}`).finally(() => { this.$router.go() });
+		}
+	}
 }
 </script>
 
